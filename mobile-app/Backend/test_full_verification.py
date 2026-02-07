@@ -3,7 +3,7 @@ import requests
 import json
 import time
 
-BASE_URL = "http://localhost:5000/api"
+BASE_URL = "http://localhost:5050/api"
 TEST_EMAIL = "testverify@example.com"
 
 print("Testing Full Email Verification Flow...")
@@ -46,7 +46,7 @@ if resp.status_code == 201:
     
     # 4. Manually verify with code (you'll need to get code from console)
     print("\n4. To verify, run:")
-    print(f"   curl -X POST http://localhost:5000/api/verify-email \\")
+    print(f"   curl -X POST http://localhost:5050/api/verify-email \\")
     print(f"     -H 'Content-Type: application/json' \\")
     print(f"     -H 'Authorization: Bearer {token}' \\")
     print(f"     -d '{{\"code\": \"ACTIVATION_CODE_FROM_CONSOLE\"}}'")

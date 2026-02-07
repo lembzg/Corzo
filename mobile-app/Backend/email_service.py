@@ -35,7 +35,7 @@ class EmailService:
         self.sender_email= "corzoapp@gmail.com"
         self.sender_password= "osexcuaehoztlcat"
         self.app_name = "CorzoApp"
-        self.base_url = "http://localhost:5000"
+        self.base_url = "http://localhost:5050"
         
         # Configure logging
         logging.basicConfig(level=logging.INFO)
