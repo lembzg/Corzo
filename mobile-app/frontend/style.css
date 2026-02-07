@@ -469,9 +469,13 @@ main {
 }
 
 .send-title {
-  font-size: 36px;
+  font-size: 24px;
   font-weight: 800;
   margin: 0;
+  padding: 14px 12px;
+  color: rgba(255, 255, 255, 1);
+  
+
 }
 
 .send-sub {
