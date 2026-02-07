@@ -8,6 +8,9 @@ from email.mime.image import MIMEImage
 from datetime import datetime, timedelta
 from typing import Optional, Dict, Any
 import logging
+from flask import Flask, jsonify, request
+from flask_cors import CORS
+
 
 class EmailService:
     """
@@ -17,7 +20,7 @@ class EmailService:
     
     def __init__(self):
         """
-        Initialize the email service.
+        Initialize the email service.   
         
         Args:
             smtp_server: SMTP server address
@@ -593,10 +596,9 @@ class EmailService:
         self.logger.info(f"Cleaned up {len(expired_users)} expired codes")
 
 
-# Example usage
 if __name__ == "__main__":
     # Configuration (use environment variables in production)
     es = EmailService()
-success = es.send_activation_email("arryltham101502@gmail.com","Nigger")
+    success = es.send_activation_email("fdf@gmail.com","gdaga")
 
 
