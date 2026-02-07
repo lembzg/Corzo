@@ -50,8 +50,9 @@
 
       <div class="send-actions">
         <button class="circle" aria-label="Schedule">⌛</button>
-        <button class="cta">Send</button>
+        <button id="sendBtn" class="cta">Send</button>
       </div>
+      <p id="txStatus"></p>
     </main>
 
     <nav class="tabbar" aria-label="Primary">
@@ -73,5 +74,7 @@
       </a>
     </nav>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.10.0/dist/ethers.umd.min.js"></script>
+  <script src="plasma.js"></script>
 </body>
 </html>

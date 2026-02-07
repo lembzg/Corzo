@@ -19,6 +19,14 @@
   box-sizing: border-box;
 }
 
+#chainStatus {
+    color: white;
+}
+
+#txStatus {
+    color: white;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
