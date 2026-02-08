@@ -17,13 +17,8 @@ from web3 import Web3
 
 # Initialize Flask app
 app = Flask(__name__)
-CORS(app, resources={
-    r"/api/*": {
-        "origins": ["http://localhost:8000", "http://127.0.0.1:8000"], 
-        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        "allow_headers": ["Content-Type", "Authorization"]
-    }
-})
+CORS(app)  # Enable CORS for all routes
+
 # Configuration
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', secrets.token_hex(32))
 app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY', secrets.token_hex(32))
@@ -37,11 +32,12 @@ USDT0_CONTRACT = "0x502012b361aebce43b26ec812b74d9a51db4d412"
 USDT0_DECIMALS = 6
 
 
-# Initialize extensions  
+# Initialize extensions
 bcrypt = Bcrypt(app)
 jwt = JWTManager(app)
 
 # Initialize Email Service
+email_service = EmailService()
 
 try:
     ATLAS_URI = "mongodb+srv://CorvoMangaer:abcd4321@hackathonoxford.9junkcs.mongodb.net/transaction_app?retryWrites=true&w=majority&appName=HackathonOxford"
@@ -58,17 +54,12 @@ try:
     
     # Test collections exist, create if not
     collections = db.list_collection_names()
-    
     if 'users' not in collections:
         db.create_collection('users')
     if 'transactions' not in collections:
         db.create_collection('transactions')
     if 'sessions' not in collections:
         db.create_collection('sessions')
-
-    email_service = EmailService(db=db)
-
-
         
 except Exception as e:
     print(f"MongoDB Connection Failed: {e}")
@@ -107,7 +98,6 @@ def register():
     """Register a new user"""
     try:
         data = request.json
-        phone = data.get('phone', '')
         email = data.get('email')
         name = data.get('name')
         password = data.get('password')
@@ -128,7 +118,6 @@ def register():
             '_id': user_id,
             'email': email,
             'name': name,
-            'phone': phone,
             'password': hashed_password,
             'created_at': datetime.utcnow(),
             'verified': False,  
@@ -143,20 +132,7 @@ def register():
                 {'_id': user_id},
                 {'$set': {'activation_code': activation_code}}
             )
-        if not success:
-            # Fallback: Store code in sessions if email fails
-            sessions_col.update_one(
-                {'user_id': user_id, 'type': 'activation'},
-                {'$set': {
-                    'code': activation_code,
-                    'email': email,
-                    'expires_at': datetime.utcnow() + timedelta(hours=24),
-                    'used': False,
-                    'created_at': datetime.utcnow(),
-                    'type': 'activation'
-                }},
-                upsert=True
-            )
+        
         # Create JWT token
         access_token = create_access_token(identity=user_id)
         
@@ -166,12 +142,10 @@ def register():
                 'id': user_id,
                 'email': email,
                 'name': name,
-                'phone': phone,
                 'verified': False,
                 'balance': 0.0
             },
-            'message': 'Registration successful. Check your email for activation code.',
-            'needs_verification': True
+            'message': 'Registration successful'
         }), 201
         
     except Exception as e:
@@ -216,7 +190,6 @@ def login():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-
 @app.route('/api/verify-email', methods=['POST'])
 @jwt_required()
 def verify_email():
@@ -229,53 +202,40 @@ def verify_email():
         if not code:
             return jsonify({'error': 'Activation code required'}), 400
         
+        # Get user
         user = users_col.find_one({'_id': user_id})
         if not user:
             return jsonify({'error': 'User not found'}), 404
         
+        # Check if already verified
         if user.get('verified'):
             return jsonify({'message': 'Email already verified'}), 200
         
-        # Check activation code in sessions collection
-        session_data = sessions_col.find_one({
-            'user_id': user_id,
-            'type': 'activation',
-            'code': code,
-            'used': False,
-            'expires_at': {'$gt': datetime.utcnow()}
-        })
+        # FIX: Check stored code in MongoDB AND EmailService memory
+        stored_code = user.get('activation_code')
+        email_service_valid = email_service.verify_activation_code(user_id, code)
         
-        if session_data:
-            # Mark code as used
-            sessions_col.update_one(
-                {'_id': session_data['_id']},
-                {'$set': {'used': True}}
-            )
-            
-            # Mark user as verified
+        # Accept if code matches either stored code OR EmailService memory
+        if stored_code == code or email_service_valid:
             users_col.update_one(
                 {'_id': user_id},
                 {'$set': {'verified': True, 'verified_at': datetime.utcnow()}}
             )
-            
-            # Create Ethereum wallet
-            if not user.get('wallet'):
+            user = users_col.find_one({'_id': user_id})
+            if user and not user.get('wallet'):
                 acct = Account.create()
                 wallet = {
                     'address': acct.address,
                     'privateKey': acct.key.hex()  
                 }
-                users_col.update_one(
-                    {'_id': user_id}, 
-                    {'$set': {'wallet': wallet}}
-                )
-            
+                users_col.update_one({'_id': user_id}, {'$set': {'wallet': wallet}})
             return jsonify({'message': 'Email verified successfully'}), 200
         else:
             return jsonify({'error': 'Invalid or expired activation code'}), 400
             
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
 @app.route('/api/forgot-password', methods=['POST'])
 def forgot_password():
     """Send password reset email"""
@@ -306,12 +266,7 @@ def forgot_password():
         })
         
         # Send reset email using your EmailService
-        success, email_token = email_service.send_password_reset_email(email, str(user['_id']))
-        # Use the same token for consistency
-        sessions_col.update_one(
-            {'_id': session['_id']},
-            {'$set': {'reset_token': email_token}}  # Store the same token
-        )
+        success, _ = email_service.send_password_reset_email(email, str(user['_id']))
         
         if success:
             return jsonify({'message': 'Password reset email sent'}), 200
@@ -680,8 +635,8 @@ def usdt_transfer_gasless():
             "from": from_addr,
             "to": to_addr,
             "value": str(value_int),
-            "validAfter": str(now - 10),
-            "validBefore": str(now + 7200),
+            "validAfter": str(now),
+            "validBefore": str(now + 3600),
             "nonce": nonce,
         }
 
@@ -694,7 +649,7 @@ def usdt_transfer_gasless():
                     {"name": "chainId", "type": "uint256"},
                     {"name": "verifyingContract", "type": "address"},
                 ],
-                "TransferWithAuthorization": [
+                "ReceiveWithAuthorization": [
                     {"name": "from", "type": "address"},
                     {"name": "to", "type": "address"},
                     {"name": "value", "type": "uint256"},
@@ -703,9 +658,9 @@ def usdt_transfer_gasless():
                     {"name": "nonce", "type": "bytes32"},
                 ],
             },
-            "primaryType": "TransferWithAuthorization",
+            "primaryType": "ReceiveWithAuthorization",
             "domain": {
-                "name": "USDT0",
+                "name": "USD Token",
                 "version": "1",
                 "chainId": PLASMA_CHAIN_ID,
                 "verifyingContract": USDT0_CONTRACT,
@@ -780,8 +735,6 @@ def usdt_transfer_gasless():
         # Return early for now (NO signing yet)
         return jsonify({
             "validated": True,
-            "authorization": authorization,
-            "signature": signature,
             "relayer_status_code": resp.status_code,
             "relayer_response": relayer_body
         }), resp.status_code
