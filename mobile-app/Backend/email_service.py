@@ -492,15 +492,15 @@ class EmailService:
             success = self._send_email(email, subject, html_body, text_body)
             
             if success:
-                return True, activation_code  # ✅ Returns actual code
+                return True, activation_code  
             else:
-                return False, activation_code  # ✅ Still return the code (email failed but code exists)
+                return False, activation_code  
                 
         except Exception as e:
             self.logger.error(f"Error sending activation email to {email}: {str(e)}")
             # Still generate a code even if email fails
             activation_code = self._create_activation_code()
-            return False, activation_code  # ✅ Return code, not error message
+            return False, activation_code  
 
     def send_password_reset_email(self, email: str, user_id: str) -> tuple:
         """

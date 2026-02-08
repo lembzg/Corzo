@@ -657,6 +657,41 @@ main {
   box-shadow: 0 8px 18px rgba(255, 255, 255, 0.15);
 }
 
+/* Login/register rotating hero text */
+.hero-rotator {
+  color: #8a8f99;
+  margin: 0 0 40px;
+  height: 30px;
+  overflow: hidden;
+  position: relative;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.rotator-track {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  animation: heroSlide 18s infinite;
+}
+
+.hero-rotator .slide {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes heroSlide {
+  0%, 12% { transform: translateY(0); }
+  16%, 28% { transform: translateY(-30px); }
+  32%, 44% { transform: translateY(-60px); }
+  48%, 60% { transform: translateY(-90px); }
+  64%, 76% { transform: translateY(-120px); }
+  80%, 92% { transform: translateY(-150px); }
+  96%, 100% { transform: translateY(-180px); }
+}
+
 .input-stack {
   display: flex;
   flex-direction: column;

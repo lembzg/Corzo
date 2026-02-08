@@ -29,9 +29,10 @@ CORS(app, resources={
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', secrets.token_hex(32))
 app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY', secrets.token_hex(32))
 
-PLASMA_RELAYER_BASE_URL = "https://dev.api.relayer.plasma.to"
-PLASMA_RELAYER_API_KEY = "KSiQ2YtFMbefcyYxdf2T5zTXkUK7ips8WA7ByxrcgSo"
-PLASMA_RPC_URL = "https://testnet-rpc.plasma.to"
+# Plasma relayer/RPC settings (never commit secrets)
+PLASMA_RELAYER_BASE_URL = os.getenv("PLASMA_RELAYER_BASE_URL", "https://dev.api.relayer.plasma.to")
+PLASMA_RELAYER_API_KEY = os.getenv("PLASMA_RELAYER_API_KEY")  # required
+PLASMA_RPC_URL = os.getenv("PLASMA_RPC_URL", "https://testnet-rpc.plasma.to")
 
 PLASMA_CHAIN_ID = 9746
 USDT0_CONTRACT = "0x502012b361aebce43b26ec812b74d9a51db4d412"
@@ -626,6 +627,8 @@ def usdt_transfer_gasless():
     Gasless USDT0 transfer via Plasma Relayer (TESTNET)
     Body: { "userId": "...", "to": "0x...", "amount": "1.00" }
     """
+    if not PLASMA_RELAYER_API_KEY:
+        return jsonify({"error": "Relayer API key not configured"}), 500
     try:
         data = request.json or {}
         user_id = (data.get("userId") or "").strip()
@@ -907,4 +910,3 @@ def users_exists():
     # username/name lookup (case-insensitive exact match)
     u = users_col.find_one({"name": {"$regex": f"^{re.escape(q)}$", "$options": "i"}})
     return jsonify({"exists": bool(u)}), 200
-

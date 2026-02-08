@@ -3,160 +3,53 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Finance Dashboard · Home</title>
+  <title>Finance Dashboard · Welcome</title>
   <link rel="stylesheet" href="style.css">
-  <script src="script.js"></script>
-  <script type="module" src="./modules.js"></script>
-
 </head>
 <body>
-  <div class="app-shell">
-    <header class="topbar">
-      <div class="avatar-dropdown">
-        <button class="avatar-btn" onclick="toggleAvatarMenu()">
-          <div class="avatar">A</div>
-        </button>
-        
-        <div class="avatar-menu" id="avatarMenu">
-          <div class="menu-header">
-            <div class="user-info">
-              <div class="avatar-small">A</div>
-              <div>
-                <div class="user-name">TOLGA</div>
-                <div class="user-email">tolga@example.com</div>
-              </div>
+  <div class="login-shell">
+
+
+    <main class="centered-div">
+      <section class="screen active" aria-label="Welcome">
+
+        <div class="card" style="text-align: center; padding: 40px 20px;">
+          <h1 style="margin: 0 0 10px 0; font-size: 24px;">Welcome To</h1>
+          <img src="CorzoLogoEmpty.png" class="logo">
+          <div class="hero-rotator" aria-live="polite">
+            <div class="rotator-track">
+              <div class="slide">Send Money. Instantly.</div>
+              <div class="slide">Sign Up in seconds.</div>
+              <div class="slide">Simple and intuitive.</div>
+              <div class="slide">Drop cash like a DM.</div>
+              <div class="slide">One Tap. Done.</div>
+              <div class="slide">24/7 Support.</div>
+              <div class="slide">Pay your way.</div>
             </div>
           </div>
           
-          <div class="menu-items">
-            <a href="profile.html" class="menu-item">
-              <span>Profile</span>
-            </a>
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <button class="cta-wide" onclick="window.location.href='login.html'">
+              Sign In
+            </button>
             
-            <a href="settings.html" class="menu-item">
-              <span>Settings</span>
-            </a>
-            
-            <div class="menu-divider"></div>
-            
-            <button class="menu-item logout" onclick="logout()">
-              <span>Logout</span>
+            <button class="cta-wide secondary" onclick="window.location.href='register.html'">
+              Create Account
             </button>
           </div>
-        </div>
-      </div>
-      <button class="icon-btn" aria-label="Notifications">
-        <span class="dot"></span>
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M12 2a6 6 0 0 0-6 6v3.09l-.94 2.35A1 1 0 0 0 6 15h12a1 1 0 0 0 .94-1.56L18 11.09V8a6 6 0 0 0-6-6Z"></path>
-          <path d="M9.17 18a3 3 0 0 0 5.66 0"></path>
-        </svg>
-      </button>
-    </header>
-
-    <main>
-      <section class="screen active" aria-label="Home">
-        <div class="card balance-card">
-          <div class="label">Total Balance</div>
-          <div class="balance" id="totalBalance">Loading…</div>
-          <div class="pill-row">
-            <span class="pill positive">▲ 4.3% this week</span>
-            <span class="pill">Multi‑account</span>
-          </div>
-          <div class="actions round">
-            <div class="round-item">
-              <button class="round-btn" aria-label="Add money">
-                <span class="icon">+</span>
-              </button>
-              <span class="round-label">Add money</span>
-            </div>
-            <div class="round-item">
-              <button class="round-btn" aria-label="Exchange">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M7 7h11l-2.3-2.3L17 4l4 4-4 4-1.3-1.3L18 8H7V7ZM17 17H6l2.3 2.3L7 20l-4-4 4-4 1.3 1.3L6 16h11v1Z"></path>
-                </svg>
-              </button>
-              <span class="round-label">Exchange</span>
-            </div>
-          </div>
+          
+          <p style="color: #8a8f99; font-size: 13px; margin-top: 30px;">
+            By continuing, you agree to our 
+            <a href="#" style="color: #ffffff; text-decoration: none;">Terms</a> and 
+            <a href="#" style="color: #ffffff; text-decoration: none;">Privacy Policy</a>
+          </p>
         </div>
 
-        <div class="grid two-col gap">
-          <div class="card accent">
-            <div class="label">Credit limit</div>
-            <div class="value">$12,000</div>
-            <div class="sub">Available $7,450</div>
-          </div>
-          <div class="card">
-            <div class="label">Savings goal</div>
-            <div class="value">$9,200</div>
-            <div class="progress">
-              <div class="progress-bar" style="width:72%"></div>
-            </div>
-            <div class="sub">72% of $12,800</div>
-          </div>
-        </div>
 
-        <div class="card list-card">
-          <div class="list-head">
-            <div class="title">Recent Transactions</div>
-            <button class="text-btn">See all</button>
-          </div>
-          <ul class="list">
-            <li>
-              <div>
-                <p class="item-title">Whole Foods Market</p>
-                <p class="item-sub">Today · Grocery</p>
-              </div>
-              <span class="item-amount negative">- $64.20</span>
-            </li>
-            <li>
-              <div>
-                <p class="item-title">Salary · Stripe</p>
-                <p class="item-sub">Feb 05 · Income</p>
-              </div>
-              <span class="item-amount positive">+ $4,200.00</span>
-            </li>
-            <li>
-              <div>
-                <p class="item-title">Lyft</p>
-                <p class="item-sub">Feb 04 · Transport</p>
-              </div>
-              <span class="item-amount negative">- $18.75</span>
-            </li>
-          </ul>
-        </div>
       </section>
     </main>
 
-    <nav class="tabbar" aria-label="Primary">
-      <a class="tab active" href="index.html">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11.5 12 4l8 7.5V20a1 1 0 0 1-1 1h-5v-5H10v5H5a1 1 0 0 1-1-1v-8.5Z"></path></svg>
-        <span>Home</span>
-      </a>
-      <a class="tab" href="send.html">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 11 18-7-6 16-3-6-6-3Z"></path></svg>
-        <span>Send</span>
-      </a>
-      <a class="tab" href="add-recipient.html">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 3 7v10l9 5 9-5V7l-9-5Zm0 2.18L19 8l-7 3.89L5 8l7-3.82Zm0 17.64L5 16V9.26l7 3.89 7-3.89V16l-7 3.82Z"></path></svg>
-        <span>Recipients</span>
-      </a>
-      <a class="tab" href="invest.html">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h4v14H4V5Zm6 4h4v10h-4V9Zm6-6h4v16h-4V3Z"></path></svg>
-        <span>Invest</span>
-      </a>
-    </nav>
+
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/ethers@6.10.0/dist/ethers.umd.min.js"></script>
-  <script src="plasma.js"></script>
-  <script type="module">
-    import { initApp, loadDashboardData } from './modules.js';
-    
-    document.addEventListener('DOMContentLoaded', function() {
-        initApp();
-        // Dashboard data loads automatically via initApp
-    });
-</script>
 </body>
 </html>

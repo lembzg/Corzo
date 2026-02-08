@@ -28,7 +28,7 @@ const AuthModule = {
     // Logout
     logout() {
         clearAuth();
-        window.location.href = 'login-register.html';
+        window.location.href = 'index.html';
     },
     
     // Redirect if not logged in
@@ -120,7 +120,7 @@ const UIModule = {
     // Update dashboard with data
     updateDashboard(data) {
         // Update balance (placeholder; on-chain refresh happens in plasma.js)
-        balanceEl = document.querySelector('#totalBalance');
+        const balanceEl = document.querySelector('#totalBalance');
         if (balanceEl) {
             balanceEl.textContent = this.formatCurrency(data.balance);
         }
@@ -176,7 +176,7 @@ function initApp() {
     
     // Check auth status
     const currentPage = window.location.pathname.split('/').pop();
-    const protectedPages = ['index.html', 'send.html', 'invest.html', 'dashboard.html'];
+    const protectedPages = ['main-page.html', 'send.html', 'invest.html', 'dashboard.html'];
     
     if (protectedPages.includes(currentPage)) {
         AuthModule.requireAuth();

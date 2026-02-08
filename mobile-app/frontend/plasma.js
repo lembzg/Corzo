@@ -233,14 +233,14 @@ if (sendBtn) {
       const ip = await getPublicIp();
 
       const authId = await submitGaslessTransfer({ userId, recipient, amount, clientIp: ip });
-      txStatus.textContent = `Queued ✅ (id: ${authId}). Waiting…`;
+      txStatus.textContent = `Queued...`;
 
       const final = await waitForFinal(authId, ip);
 
       if (final.status === "confirmed") {
-        txStatus.textContent = `Confirmed ✅ txHash: ${final.txHash}`;
+        txStatus.textContent = `Confirmed.`;
       } else if (final.status === "failed") {
-        txStatus.textContent = `Failed ❌ ${final.error || "Unknown revert"}`;
+        txStatus.textContent = `Failed.${final.error || "Unknown revert"}`;
       } else {
         txStatus.textContent = `Pending… (${final.error || "unknown"})`;
       }

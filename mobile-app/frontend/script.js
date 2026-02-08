@@ -48,7 +48,7 @@ function logout() {
     if (bal) bal.textContent = '£0.00';
 
     // Redirect to login
-    window.location.replace('login.html');
+    window.location.replace('index.html');
 }
 
 // Call updateUserInfo when page loads
@@ -109,9 +109,7 @@ document.addEventListener('keydown', function(event) {
   }
 });
 
-// -----------------------------
-// Dashboard balance auto-refresh
-// -----------------------------
+
 async function refreshBalanceForCurrentUser() {
   // Prefer the on-chain balance helper exposed by plasma.js
   if (typeof window.fetchAndRenderWalletBalance === 'function') {

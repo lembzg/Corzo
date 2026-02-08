@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Finance Dashboard · Send</title>
+  <title>Finance Dashboard · Home</title>
   <link rel="stylesheet" href="style.css">
   <script src="script.js"></script>
   <script type="module" src="./modules.js"></script>
@@ -11,7 +11,7 @@
 </head>
 <body>
   <div class="app-shell">
-<header class="topbar">
+    <header class="topbar">
       <div class="avatar-dropdown">
         <button class="avatar-btn" onclick="toggleAvatarMenu()">
           <div class="avatar">A</div>
@@ -55,39 +55,86 @@
     </header>
 
     <main>
-      <div class="screen active">
-      <div class="send-header" style="padding: 30px;">
-        <h1 class="send-title">Send Money</h1>
-
-      <div class="note-row" style="margin-top:12px;">
-        <div style="display:flex; align-items:center; gap:10px; ">
-          <input id="recipient" class="note-input" placeholder="Recipient username or email" />
+      <section class="screen active" aria-label="Home">
+        <div class="card balance-card">
+          <div class="label">Total Balance</div>
+          <div class="balance" id="totalBalance">Loading…</div>
+          <div class="pill-row">
+            <span class="pill positive">▲ 4.3% this week</span>
+            <span class="pill">Multi‑account</span>
+          </div>
+          <div class="actions round">
+            <div class="round-item">
+              <button class="round-btn" aria-label="Add money">
+                <span class="icon">+</span>
+              </button>
+              <span class="round-label">Add money</span>
+            </div>
+            <div class="round-item">
+              <button class="round-btn" aria-label="Exchange">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M7 7h11l-2.3-2.3L17 4l4 4-4 4-1.3-1.3L18 8H7V7ZM17 17H6l2.3 2.3L7 20l-4-4 4-4 1.3 1.3L6 16h11v1Z"></path>
+                </svg>
+              </button>
+              <span class="round-label">Exchange</span>
+            </div>
+          </div>
         </div>
-      </div>
-        <input id="amountInput" class="send-amount-input" aria-label="Amount" value="1.00" placeholder="0.00" />
-        <p class="send-sub" id="sendBalance">£0.00</p>
-      </div>
-    </div>
-    
 
-      <div class="note-row">
-        <input class="note-input" placeholder="Add note" aria-label="Add note">
-        <div class="note-actions">
+        <div class="grid two-col gap">
+          <div class="card accent">
+            <div class="label">Credit limit</div>
+            <div class="value">$12,000</div>
+            <div class="sub">Available $7,450</div>
+          </div>
+          <div class="card">
+            <div class="label">Savings goal</div>
+            <div class="value">$9,200</div>
+            <div class="progress">
+              <div class="progress-bar" style="width:72%"></div>
+            </div>
+            <div class="sub">72% of $12,800</div>
+          </div>
         </div>
-      </div>
 
-      <div class="send-actions">
-        <button id="sendBtn" class="cta">Send</button>
-      </div>
-      <p id="txStatus"></p>
+        <div class="card list-card">
+          <div class="list-head">
+            <div class="title">Recent Transactions</div>
+            <button class="text-btn">See all</button>
+          </div>
+          <ul class="list">
+            <li>
+              <div>
+                <p class="item-title">Whole Foods Market</p>
+                <p class="item-sub">Today · Grocery</p>
+              </div>
+              <span class="item-amount negative">- $64.20</span>
+            </li>
+            <li>
+              <div>
+                <p class="item-title">Salary · Stripe</p>
+                <p class="item-sub">Feb 05 · Income</p>
+              </div>
+              <span class="item-amount positive">+ $4,200.00</span>
+            </li>
+            <li>
+              <div>
+                <p class="item-title">Lyft</p>
+                <p class="item-sub">Feb 04 · Transport</p>
+              </div>
+              <span class="item-amount negative">- $18.75</span>
+            </li>
+          </ul>
+        </div>
+      </section>
     </main>
 
     <nav class="tabbar" aria-label="Primary">
-      <a class="tab" href="main-page.html">
+      <a class="tab active" href="main-page.html">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11.5 12 4l8 7.5V20a1 1 0 0 1-1 1h-5v-5H10v5H5a1 1 0 0 1-1-1v-8.5Z"></path></svg>
         <span>Home</span>
       </a>
-      <a class="tab active" href="send.html">
+      <a class="tab" href="send.html">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 11 18-7-6 16-3-6-6-3Z"></path></svg>
         <span>Send</span>
       </a>
@@ -112,5 +159,4 @@
     });
 </script>
 </body>
-
 </html>
