@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // api.js - Helper functions for API calls
 const API_BASE_URL = 'http://localhost:5050/api';
 const BASE_URL = "http://127.0.0.1:5050/"; // where Flask runs
@@ -144,3 +145,16 @@ export const api = {
 
 // Export the setAuthToken for use in other files
 export { setAuthToken, getAuthToken, clearAuth };
+=======
+const BASE_URL = "http://127.0.0.1:5050"; // where Flask runs
+
+async function getWalletAddress(token) {
+  const res = await fetch(`${BASE_URL}/api/wallet`, {
+    method: "GET",
+    headers: { "Authorization": `Bearer ${token}` }
+  });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error || "get wallet failed");
+  return data.address;
+}
+>>>>>>> 1ad07a1 (My changes)
