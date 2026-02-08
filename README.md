@@ -180,31 +180,34 @@ Room to grow internationally - While Mexico remains the core, the ~3,000 stores 
  • Even a 1% improvement in how this money moves represents a
  • $1.76B opportunity—while directly improving lives like Sara’s.
 
-Closing — Confidence in the Solution
+## Closing: Confidence in the Solution
 **Project Goal:**
 Become the most high-tech and lowest-cost operator in the cash transfer business.
  
 ## Milestones Achieved / In Progress
-Workstream 1 – MVP Development:
-  •	Designed and built a minimum viable product focused on low transaction fees
-  •	Ensures rapid fund access for users
-Workstream 2 – Partnerships:
-  •	Collaborating with partners, local banks, microfinance institutions, and retailers
-  •	Preparing fundraising and financing to scale operations
-Workstream 3 – Strategic Alliances:
-  •	Engaging mobile network operators for broad reach
-  •	Aligning with regulatory bodies to ensure full compliance
+__Workstream 1__ 
+**MVP Development:**
+- Designed and built a minimum viable product focused on low transaction fees
+- Ensures rapid fund access for users
+__Workstream 2__
+**Partnerships:**
+- Collaborating with partners, local banks, microfinance institutions, and retailers
+- Preparing fundraising and financing to scale operations
+__Workstream 3__
+**strategic Alliances:**
+- Engaging mobile network operators for broad reach
+- Aligning with regulatory bodies to ensure full compliance
  
 ## What’s Next
-•	Pilot program: Launch MVP in target corridor (U.S. → Mexico)
-•	Expand partnerships: Onboard more financial and retail partners
-•	Scale reach: Use mobile networks to reduce costs and time further
-•	Measure impact: Track user savings, faster transfers, and fee reduction
+- **Pilot program:** Launch MVP in target corridor (U.S. → Mexico)
+- **Expand partnerships:** Onboard more financial and retail partners
+- **Scale reach:** Use mobile networks to reduce costs and time further
+- **Measure impact:** Track user savings, faster transfers, and fee reduction
  
 ## How to Get Involved
-•	**Investors:** Join our journey to capture a $1.76B opportunity while transforming lives
-•	**Partners:** Collaborate to expand financial inclusion and low-cost remittances
-•	**Advocates & users:** Be part of a platform that delivers money instantly, securely, and affordably
+- **Investors:** Join our journey to capture a $1.76B opportunity while transforming lives
+- **Partners:** Collaborate to expand financial inclusion and low-cost remittances
+- **Advocates & users:** Be part of a platform that delivers money instantly, securely, and affordably
 
 
 
