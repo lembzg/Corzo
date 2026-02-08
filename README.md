@@ -150,7 +150,8 @@ __Why this partnership works__
 
 
 **Partner 2:** 
-Operates a few thousand stores across Latin America and a few hundred in the U.S. 25,987 OXXO stores in its Proximity Americas division (Mexico, Brazil, Chile, Colombia, Peru, and the U.S.). Of these, **23,206** are in Mexico as of end 2024, implying roughly **2,800–2,900** stores across the rest of the Americas.
+- Operates a few thousand stores across Latin America and a few hundred in the U.S. 25,987 OXXO stores in its Proximity Americas division (Mexico, Brazil, Chile, Colombia, Peru, and the U.S.).
+- Of these, **23,206** are in Mexico as of end 2024, implying roughly **2,800–2,900** stores across the rest of the Americas.
 
 __Why this partnership works__
 - Massive daily-use footprint.
