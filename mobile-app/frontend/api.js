@@ -1,6 +1,18 @@
 // api.js - Helper functions for API calls
 const API_BASE_URL = 'http://localhost:5050/api';
+const BASE_URL = "http://127.0.0.1:5050/"; // where Flask runs
 
+async function getWalletAddress() {
+  const userId = localStorage.getItem("userId");
+  if (!userId) throw new Error("No userId in localStorage");
+
+  const res = await fetch('${BASE_URL}/api/wallet?userId=${encodeURIComponent(userId)}');
+  const data = await res.json();
+
+  if (!res.ok) throw new Error(data.error || "Failed to get wallet");
+
+  return data.address; 
+}
 // Store token in localStorage
 function setAuthToken(token) {
     localStorage.setItem('token', token);
